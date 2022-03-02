@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junefw.infra.modules.code.CodeMpp">	<!-- 지금 파일 지정 -->
+
+    <resultMap id="resultMapObj" type="com.junefw.infra.modules.code.Code"></resultMap>	<!-- 결과 객체 저징 -->
+
+	<select id="selectList" resultMap="resultMapObj">
+		SELECT 
+			a.ifcgSeq
+			, a.ifcgName
+			, a.ifcgDelNy
+		FROM
+			nct.infrCodeGroup a
+		WHERE 1=1
+			AND ifcgDelNy = 0
+	</select>
+	
+	<insert id="insert">
+			insert into infrMember (
+				ifmmId
+				,ifmmName
+				,ifmmDelNy
+			) values (
+				#{ifmmId}
+				,#{ifmmName}
+				,0
+			)
+	</insert>
+</mapper>
