@@ -14,9 +14,30 @@
 			, a.ifcgName
 			, a.ifcgDelNy
 		FROM
-			nct.infrCodeGroup a
+			infrCodeGroup a
 		WHERE 1=1
 			AND ifcgDelNy = 0
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO infrCodeGroup (
+			ifcgName
+			,ifcgDelNy
+		) VALUES (
+			#{ifcgName}		
+			,0		
+		)
+	</insert>
+	
+	<select id="selectOne" resultMap="resultMapObj">
+		SELECT 
+			a.ifcgSeq
+			, a.ifcgName
+			, a.ifcgDelNy
+		FROM
+			infrCodeGroup a
+		WHERE 1=1
+			AND ifcgSeq = #{ifcgSeq}
 	</select>
 	
 </mapper>
