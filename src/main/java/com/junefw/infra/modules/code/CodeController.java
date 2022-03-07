@@ -52,21 +52,51 @@ public class CodeController {
 		
 		// 디비까지 가서 한 건의 데이터 값을 가지고 온다, VO
 		Code rt = service.selectOne(vo);
+		Code rt2 = service.selectOne(vo);
+		Code rt3 = service.selectOne(vo);
 		
 		// 가지고 온값을 jsp로 념겨준다
 		model.addAttribute("item", rt);
+		model.addAttribute("item2", rt2);
+		model.addAttribute("item3", rt3);
 
 		return "code/codeGroupView";
 	}
 	
 	
-	
-	// 수정폼이 보여지는 주소
-		// 한건의 데이터를 가져와야겠죠
+	@RequestMapping(value = "/code/codeGroupForm2")
+	public String codeGroupForm2(CodeVo vo, Model model) throws Exception {
 		
+		// 한건의 데이터를 가져와야겠죠
+		Code rt = service.selectOne(vo);
+		
+		model.addAttribute("rt", rt);
+		
+		return "code/codeGroupForm2";
+	}
+
+		
+	@RequestMapping(value = "/code/codeGroupUpdt")
+	public String codeGroupUpdt(Code dto) throws Exception {
 	
-	// 실제 수정을 하는 주소
 		// 수정 프로세스 실행
+		service.update(dto);
+		
+		return "";
+	}
+
+//	--------------------
+//	code
+	
+	@RequestMapping(value = "/code/codeList")
+	public String codeList(Model model) throws Exception {
+		
+//		List<Code> list = service.selectList();
+		
+//		model.addAttribute("list", list);
+		
+		return "code/codeList";
+	}
 	
 	
 }

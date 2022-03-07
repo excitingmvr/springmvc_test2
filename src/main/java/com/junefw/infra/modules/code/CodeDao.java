@@ -26,4 +26,8 @@ public class CodeDao {
 	
 	public Code selectOne(CodeVo vo) { return sqlSession.selectOne(namespace + ".selectOne", vo);}
 	
+	public int update(Code dto) { 
+		return sqlSession.update(namespace + ".update", dto); 
+	}
+	
 }
