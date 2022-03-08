@@ -7,7 +7,7 @@
 
 codelist
 
-<%-- 
+
 <c:choose>
 	<c:when test="${fn:length(list) eq 0}">
 		<tr>
@@ -17,8 +17,8 @@ codelist
 	<c:otherwise>
 		<c:forEach items="${list}" var="item" varStatus="status">	
 		
-		<c:out value="${item.ifcgSeq}"/> | <a href="/infra/code/codeGroupView?ifcgSeq=<c:out value="${item.ifcgSeq}"/>"><c:out value="${item.ifcgName}"/></a> | <c:out value="${item.ifcgDelNy}"/> <br>
+		<c:out value="${item.ifcdSeq}"/> | <a href="/infra/code/codeView?ifcdSeq=<c:out value="${item.ifcdSeq}"/>"><c:out value="${item.ifcdName}"/></a> | <c:out value="${item.ifcdDelNy}"/> <br>
 		
 		</c:forEach>
 	</c:otherwise>
-</c:choose>	  --%>
+</c:choose>	 

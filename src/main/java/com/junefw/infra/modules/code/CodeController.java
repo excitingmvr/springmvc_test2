@@ -14,6 +14,8 @@ public class CodeController {
 	CodeServiceImpl service;
 	
 
+//	infrCodeGroup
+	
 	@RequestMapping(value = "/code/codeGroupList")
 	public String codeGroupList(Model model) throws Exception {
 		
@@ -85,17 +87,69 @@ public class CodeController {
 		return "";
 	}
 
-//	--------------------
-//	code
+
+//	infrCode
+	
 	
 	@RequestMapping(value = "/code/codeList")
 	public String codeList(Model model) throws Exception {
 		
-//		List<Code> list = service.selectList();
+		List<Code> list = service.selectListCode();
 		
-//		model.addAttribute("list", list);
+		model.addAttribute("list", list);
 		
 		return "code/codeList";
+	}
+	
+	
+	@RequestMapping(value = "/code/codeForm")
+	public String codeForm(Model model) throws Exception {
+
+		List<Code> list = service.selectList();
+		
+		model.addAttribute("list", list);
+		
+		return "code/codeForm";
+	}
+	
+	
+	@RequestMapping(value = "/code/codeInst")
+	public String codeInst(Code dto) throws Exception {
+		
+		service.insertCode(dto);
+
+		return "";
+	}
+	
+	
+	@RequestMapping(value = "/code/codeView")
+	public String codeView(CodeVo vo, Model model) throws Exception {
+		
+		Code rt = service.selectOneCode(vo);
+		
+		model.addAttribute("item", rt);
+
+		return "code/codeView";
+	}
+	
+	
+	@RequestMapping(value = "/code/codeForm2")
+	public String codeForm2(CodeVo vo, Model model) throws Exception {
+		
+		Code rt = service.selectOneCode(vo);
+		
+		model.addAttribute("item", rt);
+		
+		return "code/codeForm2";
+	}
+
+		
+	@RequestMapping(value = "/code/codeUpdt")
+	public String codeUpdt(Code dto) throws Exception {
+	
+		service.updateCode(dto);
+		
+		return "";
 	}
 	
 	
