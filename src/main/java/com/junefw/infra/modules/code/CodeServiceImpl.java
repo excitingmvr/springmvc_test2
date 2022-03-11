@@ -14,8 +14,8 @@ public class CodeServiceImpl implements CodeService{
 //	infrCodeGroup
 	
 	@Override
-	public List<Code> selectList() throws Exception {
-		return dao.selecList();
+	public List<Code> selectList(CodeVo vo) throws Exception {
+		return dao.selecList(vo);
 	}
 
 	@Override
@@ -38,8 +38,8 @@ public class CodeServiceImpl implements CodeService{
 	
 	
 	@Override
-	public List<Code> selectListCode() throws Exception { 
-		return dao.selecListCode();
+	public List<Code> selectListCode(CodeVo vo) throws Exception { 
+		return dao.selecListCode(vo);
 	}
 
 	@Override

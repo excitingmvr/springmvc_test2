@@ -5,8 +5,17 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags" %>
 
-codelist
 
+<form id="" name="" method="get" action="/infra/code/codeList">
+<select name="shIfcgSeq">
+	<option value="">::코드그룹::
+		<c:forEach items="${listCodeGroup}" var="item" varStatus="status">
+	<option value="<c:out value="${item.ifcgSeq }"/>" <c:if test="${param.shIfcgSeq eq item.ifcgSeq }">selected</c:if>><c:out value="${item.ifcgName }"/>
+		</c:forEach>
+</select>
+<input type="submit" name="search">
+<br>
+<br>
 
 <c:choose>
 	<c:when test="${fn:length(list) eq 0}">
@@ -17,8 +26,10 @@ codelist
 	<c:otherwise>
 		<c:forEach items="${list}" var="item" varStatus="status">	
 		
-		<c:out value="${item.ifcdSeq}"/> | <a href="/infra/code/codeView?ifcdSeq=<c:out value="${item.ifcdSeq}"/>"><c:out value="${item.ifcdName}"/></a> | <c:out value="${item.ifcdDelNy}"/> <br>
+		<c:out value="${item.ifcgSeq}"/> : <c:out value="${item.ifcdSeq}"/> | <a href="/infra/code/codeView?ifcdSeq=<c:out value="${item.ifcdSeq}"/>"><c:out value="${item.ifcdName}"/></a> | <c:out value="${item.ifcdDelNy}"/> <br>
 		
 		</c:forEach>
 	</c:otherwise>
 </c:choose>	 
+
+</form>

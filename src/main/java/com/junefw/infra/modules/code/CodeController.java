@@ -17,9 +17,9 @@ public class CodeController {
 //	infrCodeGroup
 	
 	@RequestMapping(value = "/code/codeGroupList")
-	public String codeGroupList(Model model) throws Exception {
+	public String codeGroupList(CodeVo vo, Model model) throws Exception {
 		
-		List<Code> list = service.selectList();
+		List<Code> list = service.selectList(vo);
 		
 		model.addAttribute("list", list);
 		
@@ -38,29 +38,21 @@ public class CodeController {
 	public String codeGroupInst(Code dto) throws Exception {
 		
 		
-		System.out.println();
-		
 //		입력 실행
 		service.insert(dto);
 
-		return "";
+		return "redirect:/code/codeGroupList";
 	}
 	
 	
 	@RequestMapping(value = "/code/codeGroupView")
 	public String codeGroupView(CodeVo vo, Model model) throws Exception {
 		
-		System.out.println("vo.getIfcgSeq(): " + vo.getIfcgSeq());
-		
 		// 디비까지 가서 한 건의 데이터 값을 가지고 온다, VO
 		Code rt = service.selectOne(vo);
-		Code rt2 = service.selectOne(vo);
-		Code rt3 = service.selectOne(vo);
 		
 		// 가지고 온값을 jsp로 념겨준다
 		model.addAttribute("item", rt);
-		model.addAttribute("item2", rt2);
-		model.addAttribute("item3", rt3);
 
 		return "code/codeGroupView";
 	}
@@ -84,7 +76,7 @@ public class CodeController {
 		// 수정 프로세스 실행
 		service.update(dto);
 		
-		return "";
+		return "redirect:/code/codeGroupView?ifcgSeq=" + dto.getIfcgSeq();
 	}
 
 
@@ -92,11 +84,13 @@ public class CodeController {
 	
 	
 	@RequestMapping(value = "/code/codeList")
-	public String codeList(Model model) throws Exception {
+	public String codeList(CodeVo vo, Model model) throws Exception {
 		
-		List<Code> list = service.selectListCode();
-		
+		List<Code> list = service.selectListCode(vo);
 		model.addAttribute("list", list);
+		
+		List<Code> listCodeGroup = service.selectList(vo);
+		model.addAttribute("listCodeGroup", listCodeGroup);
 		
 		return "code/codeList";
 	}
@@ -105,9 +99,9 @@ public class CodeController {
 	@RequestMapping(value = "/code/codeForm")
 	public String codeForm(Model model) throws Exception {
 
-		List<Code> list = service.selectList();
+//		List<Code> list = service.selectListCode();
 		
-		model.addAttribute("list", list);
+//		model.addAttribute("list", list);
 		
 		return "code/codeForm";
 	}
