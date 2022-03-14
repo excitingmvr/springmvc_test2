@@ -14,15 +14,20 @@
 		SELECT 
 			a.ifcgSeq
 			, a.ifcgName
+			, a.ifcgNameEng
 			, a.ifcgDelNy
 		FROM
 			infrCodeGroup a
 		WHERE 1=1
 			<choose>
-				<when test="shIfcgDelNy == 1">AND ifcgDelNy = 1</when>
-				<when test="shIfcgDelNy == 0">AND ifcgDelNy = 0</when>
+				<when test="shIfcgDelNy == 1">AND a.ifcgDelNy = 1</when>
+				<when test="shIfcgDelNy == 0">AND a.ifcgDelNy = 0</when>
 			</choose>
-			<if test="shIfcgName != null and !shIfcgName.equals('')"> AND ifcgName LIKE concat('%',#{shIfcgName},'%')</if>
+			<if test="shIfcgName != null and !shIfcgName.equals('')"> AND a.ifcgName LIKE concat('%',#{shIfcgName},'%')</if>
+			<choose>                             
+				<when test="shOption == 1">AND a.ifcgName LIKE concat('%',#{shValue},'%')</when>
+				<when test="shOption == 2">AND a.ifcgNameEng LIKE concat('%',#{shValue},'%')</when>
+			</choose>
 	</select>
 	
 	<insert id="insert">

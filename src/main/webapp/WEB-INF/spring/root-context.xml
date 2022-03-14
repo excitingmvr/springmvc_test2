@@ -7,10 +7,12 @@
 	
 	<!-- mariadb s 2022.02.15 -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="org.mariadb.jdbc.Driver" />
-		<property name="url" value="jdbc:mariadb://rds-inst-1.cqrisz1cmtkf.ap-northeast-2.rds.amazonaws.com:33062/nct" />
-		<property name="username" value="riuser" />
-		<property name="password" value="Wyj291872" />
+		<!-- <property name="driverClassName" value="org.mariadb.jdbc.Driver" /> -->
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+		<!-- <property name="url" value="jdbc:mariadb://rds-inst-1.cqrisz1cmtkf.ap-northeast-2.rds.amazonaws.com:33062/nct" /> -->
+		<property name="url" value="jdbc:log4jdbc:mariadb://sj-maria-1.cvnd1cw1haiu.ap-northeast-2.rds.amazonaws.com:33062/nct" />
+		<property name="username" value="sjmrdmin" />
+		<property name="password" value="Thwjsj11!!" />
 	</bean>
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
