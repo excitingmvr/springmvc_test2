@@ -10,12 +10,7 @@
 
 	<!-- infrCodeGroup -->
 	
-	<select id="selectList" resultMap="resultMapObj">
-		SELECT 
-			a.ifcgSeq
-			, a.ifcgName
-			, a.ifcgNameEng
-			, a.ifcgDelNy
+	<sql id="selectCommon">
 		FROM
 			infrCodeGroup a
 		WHERE 1=1
@@ -28,6 +23,24 @@
 				<when test="shOption == 1">AND a.ifcgName LIKE concat('%',#{shValue},'%')</when>
 				<when test="shOption == 2">AND a.ifcgNameEng LIKE concat('%',#{shValue},'%')</when>
 			</choose>
+	</sql>
+	
+	
+	<select id="selectOneCount" resultType="Integer">
+		SELECT 
+			 count(*)
+		<include refid="selectCommon" />
+	</select>
+	
+	
+	<select id="selectList" resultMap="resultMapObj">
+		SELECT 
+			a.ifcgSeq
+			, a.ifcgName
+			, a.ifcgNameEng
+			, a.ifcgDelNy
+		<include refid="selectCommon" />
+		limit #{startRnumForMysql}, #{rowNumToShow} 
 	</select>
 	
 	<insert id="insert">
