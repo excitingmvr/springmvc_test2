@@ -9,21 +9,22 @@
 
 <form id="" name="" method="get" action="/infra/code/codeGroupList">
 
-<select name="shIfcgDelNy">
+<select name="shIfcgDelNy" id="shIfcgDelNy">
 	<option value="">::삭제여부::
 	<option value="1">Y
 	<option value="0">N
 </select>
 || 
-회원이름 : <input type="text" name="shIfcgName">
+코드구룹이름 : <input type="text" id="shIfcgName" name="shIfcgName">
 ||
-<select name="shOption">
+<select name="shOption" id="shOption">
 	<option value="">::검색구분::
 	<option value="1">한글
 	<option value="2">영문
 </select>
-<input type="text" name="shValue">
+<input type="text" name="shValue" id="shValue">
 <input type="submit" id="btnSubmit" name="search">
+<input type="submit" id="btnSubmit2" name="search">
 <br>
 
 <c:choose>
@@ -35,7 +36,14 @@
 	<c:otherwise>
 		<c:forEach items="${list}" var="item" varStatus="status">	
 		
-		<c:out value="${item.ifcgSeq}"/> | <a href="/infra/code/codeGroupView?ifcgSeq=<c:out value="${item.ifcgSeq}"/>"><c:out value="${item.ifcgName}"/></a> | <c:out value="${item.ifcgNameEng}"/> |<c:out value="${item.ifcgDelNy}"/> <br>
+		<c:out value="${item.ifcgSeq}"/> | <a href="/infra/code/codeGroupView?ifcgSeq=<c:out value="${item.ifcgSeq}"/>"><c:out value="${item.ifcgName}"/></a> | <c:out value="${item.ifcgNameEng}"/> |
+		
+		<c:choose>
+			<c:when test="${item.ifcdDelNy eq 0 }">O</c:when>
+			<c:otherwise>X</c:otherwise>
+		</c:choose>
+		
+		<%-- <c:out value="${item.ifcgDelNy}"/> --%> <br>
 		
 		</c:forEach>
 	</c:otherwise>
@@ -70,9 +78,35 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-	$("#btnSubmit").on("click", function(){
-		alert($("#shOption").val());
-	});
+<script src="/infra/resources/js/validation.js"></script>
 
+<script type="text/javascript">
+
+
+
+	$("#btnSubmit").on("click", function(){
+	
+		if(!checkNull($("#shIfcgName"), $("#shIfcgName").val(), "코드그룹이름을 입력해 주세요!")) return false;
+		if(!checkNull($("#shValue"), $("#shValue").val(), "검색어를 입력해 주세요!")) return false; 
+	
+	});
+	
+	
+
+	
+	$("#btnSubmit2").on("click", function(){
+		
+		alert("2번째 버튼 입니다.!")
+	
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </script>
