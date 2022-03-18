@@ -11,18 +11,18 @@
 
 <select name="shIfcgDelNy" id="shIfcgDelNy">
 	<option value="">::삭제여부::
-	<option value="1">Y
-	<option value="0">N
+	<option value="1" <c:if test="${vo.shIfcgDelNy eq 1 }">selected</c:if>>Y
+	<option value="0" <c:if test="${vo.shIfcgDelNy eq 0 }">selected</c:if>>N
 </select>
 || 
-코드구룹이름 : <input type="text" id="shIfcgName" name="shIfcgName">
+코드구룹이름 : <input type="text" id="shIfcgName" name="shIfcgName" value="<c:out value="${vo.shIfcgName }"/>">
 ||
 <select name="shOption" id="shOption">
 	<option value="">::검색구분::
-	<option value="1">한글
-	<option value="2">영문
+	<option value="1" <c:if test="${vo.shOption eq 1 }">selected</c:if>>한글
+	<option value="2" <c:if test="${vo.shOption eq 2 }">selected</c:if>>영문
 </select>
-<input type="text" name="shValue" id="shValue">
+<input type="text" name="shValue" id="shValue" value="<c:out value="${vo.shValue }"/>">
 <input type="submit" id="btnSubmit" name="search">
 <input type="submit" id="btnSubmit2" name="search">
 <br>
@@ -89,6 +89,14 @@
 		if(!checkNull($("#shIfcgName"), $("#shIfcgName").val(), "코드그룹이름을 입력해 주세요!")) return false;
 		if(!checkNull($("#shValue"), $("#shValue").val(), "검색어를 입력해 주세요!")) return false; 
 	
+		// 여기다 해야 되는건 아시겠죠 ?
+		if($("#shOption").val() == 2) {
+			alert("2번 선택되었습니다.")
+		} else {
+			// by pass
+		}
+				
+		
 	});
 	
 	
