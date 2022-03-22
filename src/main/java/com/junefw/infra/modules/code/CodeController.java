@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class CodeController {
@@ -38,25 +39,39 @@ public class CodeController {
 	
 	
 	@RequestMapping(value = "/code/codeGroupForm")
-	public String codeGroupForm() throws Exception {
+	public String codeGroupForm(@ModelAttribute("vo") CodeVo vo) throws Exception {
 
 		return "code/codeGroupForm";
 	}
 	
 	
 	@RequestMapping(value = "/code/codeGroupInst")
-	public String codeGroupInst(Code dto) throws Exception {
+	public String codeGroupInst(Code dto, CodeVo vo) throws Exception {
 		
+		System.out.println("dto.getIfcgSeq(): " + dto.getIfcgSeq());	// null
 		
-//		입력 실행
 		service.insert(dto);
 
-		return "redirect:/code/codeGroupList";
+		System.out.println("dto.getIfcgSeq(): " + dto.getIfcgSeq());	// 26
+		
+//		redirectAttributes.addAttribute("ifcgSeq", dto.getIfcgSeq());
+//		redirectAttributes.addAttribute("thisPage", vo.getThisPage());
+//		redirectAttributes.addAttribute("shOption", vo.getShOption());
+//		redirectAttributes.addAttribute("shValue", vo.getShValue());
+//		redirectAttributes.addFlashAttribute("vo", vo);
+		
+//		return "redirect:/code/codeGroupList"; 
+		return "redirect:/code/codeGroupList" + makeQueryString(); 
+//		return "redirect:/code/codeGroupView?ifcgSeq=" + dto.getIfcgSeq() +"&thisPage=" + vo.getThisPage() + "&shOption=" + vo.getShOption() + "&shValue=" + vo.getShValue(); 
 	}
 	
 	
 	@RequestMapping(value = "/code/codeGroupView")
-	public String codeGroupView(CodeVo vo, Model model) throws Exception {
+	public String codeGroupView(@ModelAttribute("vo") CodeVo vo, Model model) throws Exception {
+		
+		System.out.println("vo.getShOption(): " + vo.getShOption());
+		System.out.println("vo.getShValue(): " + vo.getShValue());
+		System.out.println("vo.getThisPage(): " + vo.getThisPage());
 		
 		// 디비까지 가서 한 건의 데이터 값을 가지고 온다, VO
 		Code rt = service.selectOne(vo);
@@ -87,6 +102,13 @@ public class CodeController {
 		service.update(dto);
 		
 		return "redirect:/code/codeGroupView?ifcgSeq=" + dto.getIfcgSeq();
+	}
+	
+	public String makeQueryString() {
+		
+//		ifcgSeq=" + dto.getIfcgSeq() +"&thisPage=" + vo.getThisPage() + "&shOption=" + vo.getShOption() + "&shValue=" + vo.getShValue()
+		
+		return null;
 	}
 
 
