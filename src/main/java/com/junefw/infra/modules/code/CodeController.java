@@ -46,23 +46,31 @@ public class CodeController {
 	
 	
 	@RequestMapping(value = "/code/codeGroupInst")
-	public String codeGroupInst(Code dto, CodeVo vo) throws Exception {
+	public String codeGroupInst(Code dto, CodeVo vo, RedirectAttributes redirectAttributes) throws Exception {
 		
 		System.out.println("dto.getIfcgSeq(): " + dto.getIfcgSeq());	// null
 		
 		service.insert(dto);
 
 		System.out.println("dto.getIfcgSeq(): " + dto.getIfcgSeq());	// 26
+
+		redirectAttributes.addAttribute("ifcgSeq", dto.getIfcgSeq());	// get
+		redirectAttributes.addAttribute("thisPage", vo.getThisPage());	// get
+		redirectAttributes.addAttribute("shOption", vo.getShOption());	// get
+		redirectAttributes.addAttribute("shValue", vo.getShValue());	// get
 		
-//		redirectAttributes.addAttribute("ifcgSeq", dto.getIfcgSeq());
-//		redirectAttributes.addAttribute("thisPage", vo.getThisPage());
-//		redirectAttributes.addAttribute("shOption", vo.getShOption());
-//		redirectAttributes.addAttribute("shValue", vo.getShValue());
-//		redirectAttributes.addFlashAttribute("vo", vo);
+		return "redirect:/code/codeGroupView";
 		
-//		return "redirect:/code/codeGroupList"; 
-		return "redirect:/code/codeGroupList" + makeQueryString(); 
-//		return "redirect:/code/codeGroupView?ifcgSeq=" + dto.getIfcgSeq() +"&thisPage=" + vo.getThisPage() + "&shOption=" + vo.getShOption() + "&shValue=" + vo.getShValue(); 
+//		return "redirect:/code/codeGroupView?ifcgSeq=" + dto.getIfcgSeq() + makeQueryString(vo);
+
+	}
+	
+
+	public String makeQueryString(CodeVo vo) {
+		String tmp = "&thisPage=" + vo.getThisPage() 
+					+ "&shOption=" + vo.getShOption() 
+					+ "&shValue=" + vo.getShValue(); 
+		return tmp;
 	}
 	
 	
@@ -96,20 +104,28 @@ public class CodeController {
 
 		
 	@RequestMapping(value = "/code/codeGroupUpdt")
-	public String codeGroupUpdt(Code dto) throws Exception {
+	public String codeGroupUpdt(Code dto, CodeVo vo) throws Exception {
 	
 		// 수정 프로세스 실행
 		service.update(dto);
 		
-		return "redirect:/code/codeGroupView?ifcgSeq=" + dto.getIfcgSeq();
+		return "redirect:/code/codeGroupView?ifcgSeq=" + dto.getIfcgSeq() + makeQueryString(vo);
 	}
 	
-	public String makeQueryString() {
+	
+	@RequestMapping(value = "/code/codeGroupDele")
+	public String codeGroupDele(CodeVo vo, RedirectAttributes redirectAttributes) throws Exception {
 		
-//		ifcgSeq=" + dto.getIfcgSeq() +"&thisPage=" + vo.getThisPage() + "&shOption=" + vo.getShOption() + "&shValue=" + vo.getShValue()
+		service.delete(vo);
 		
-		return null;
+	   redirectAttributes.addAttribute("thisPage", vo.getThisPage());	
+	   redirectAttributes.addAttribute("shOption", vo.getShOption());	
+	   redirectAttributes.addAttribute("shValue", vo.getShValue());	
+		
+		return "redirect:/code/codeGroupList";
 	}
+	
+
 
 
 //	infrCode

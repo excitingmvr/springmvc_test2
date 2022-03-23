@@ -58,6 +58,7 @@
 		</selectKey>		
 	</insert>
 	
+	
 	<select id="selectOne" resultMap="resultMapObj">
 		SELECT 
 			a.ifcgSeq
@@ -69,12 +70,23 @@
 			AND ifcgSeq = #{ifcgSeq}
 	</select>
 	
+	
 	<update id="update">
 		UPDATE infrCodeGroup SET 
 			ifcgName = #{ifcgName}
 		WHERE 1=1
 			AND ifcgSeq = #{ifcgSeq}
 	</update>
+	
+	
+	<update id="updateDelet">
+		UPDATE infrCodeGroup SET ifcgDelNy = 1 WHERE 1=1 AND ifcgSeq = #{ifcgSeq}
+	</update>
+	
+	
+	<delete id="delete">
+		DELETE FROM infrCodeGroup WHERE 1=1 AND ifcgSeq = #{ifcgSeq}
+	</delete>
 	
 	<!-- infrCode -->
 	

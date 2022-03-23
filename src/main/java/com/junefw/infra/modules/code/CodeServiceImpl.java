@@ -42,10 +42,20 @@ public class CodeServiceImpl implements CodeService{
 		return dao.update(dto);
 	}
 
+	@Override
+	public int delete(CodeVo vo) throws Exception {
+		return dao.delete(vo);
+	}
+
+	@Override
+	public int updateDelete(CodeVo vo) throws Exception {
+		return dao.updateDelete(vo);
+	}
+	
+	
 	
 //	infrCode
-	
-	
+
 	@Override
 	public List<Code> selectListCode(CodeVo vo) throws Exception { 
 		return dao.selecListCode(vo);
