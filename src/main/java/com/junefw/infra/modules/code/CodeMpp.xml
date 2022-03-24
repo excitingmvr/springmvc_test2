@@ -90,6 +90,13 @@
 	
 	<!-- infrCode -->
 	
+	<sql id="selectCommonCode">
+		FROM
+			infrCodeGroup a
+		WHERE 1=1
+
+	</sql>
+	
 	<select id="selectListCode" resultMap="resultMapObj">
 		SELECT 
 			a.ifcdSeq
@@ -132,5 +139,18 @@
 		WHERE 1=1
 			AND ifcdSeq = #{ifcdSeq}
 	</update>
+	
+	
+	<select id="selectListForCache" resultMap="resultMapObj">
+		SELECT 
+			ifcdSeq
+			, ifcdName
+			, ifcgSeq
+		FROM 
+			infrCode 
+		WHERE 1=1 
+			AND ifcdDelNy = 0 
+			AND ifcdUseNy = 1 
+	</select>
 	
 </mapper>

@@ -1,5 +1,8 @@
 package com.junefw.infra.modules.code;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Code {
 	
 //	infrCodeGroup
@@ -8,11 +11,16 @@ public class Code {
 	private String ifcgNameEng;
 	private Integer ifcgDelNy;
 	
+	
 //	infrCode
 	private String ifcdSeq;
 	private String ifcdName;
 	private String ifcdDelNy;
 //	private String ifcgSeq;
+	
+	
+//	for cache
+	public static List<Code> cachedCodeArrayList = new ArrayList<Code>();
 //------------
 	public String getIfcgSeq() {
 		return ifcgSeq;
